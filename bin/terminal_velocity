@@ -22,7 +22,7 @@ def main():
 
     # Parse the config file.
     config_file = os.path.abspath(os.path.expanduser(args.config))
-    config = configparser.SafeConfigParser()
+    config = configparser.ConfigParser()
     config.read(config_file)
     defaults = dict(config.items('DEFAULT'))
 

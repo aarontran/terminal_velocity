@@ -52,6 +52,7 @@ This module provides a simple brute force full text search implementation.
 Other modules could provide better search functions that could be plugged in.
 
 """
+from builtins import str
 import logging
 logger = logging.getLogger(__name__)
 import os
@@ -66,6 +67,10 @@ def unicode_or_bust(raw_text):
     If the text cannot be decoded, return None.
 
     """
+    # ~~~~~ HACK from https://github.com/vhp/terminal_velocity/pull/18
+    if sys.version_info >= (3,0):
+        return raw_text
+    # ~~~~~ HACK
     encodings = ["utf-8"]
     for encoding in (sys.getfilesystemencoding(), sys.getdefaultencoding()):
         # I would use a set for this, but they don't maintain order.

@@ -29,7 +29,10 @@ def system(cmd, loop):
     loop.screen.stop()
 
     cmd = "{0}".format(cmd)
-    cmd = cmd.encode(sys.getfilesystemencoding())  # FIXME: Correct encoding?
+    # ~~~~~ HACK from https://github.com/vhp/terminal_velocity/pull/18
+    if sys.version_info < (3,0):
+        cmd = cmd.encode(sys.getfilesystemencoding())  # FIXME: Correct encoding?
+    # ~~~~~ HACK
     safe_cmd = shlex.split(cmd)
 
     logger.debug("System command: {0}".format(safe_cmd))
